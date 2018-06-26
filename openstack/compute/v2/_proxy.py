@@ -1167,15 +1167,15 @@ class Proxy(proxy.Proxy):
         server = self._get_resource(_server.Server, server)
         server.migrate(self)
 
-    def live_migrate_server(self, server, host=None, force=False):
+    def live_migrate_server(self, server, host=None, block_migration=False, disk_over_commit=False):
         """Migrate a server from one host to target host
 
         :param server: Either the ID of a server or a
                        :class:`~openstack.compute.v2.server.Server` instance.
         :param host: The host to which to migrate the server
-        :param force: Force a live-migration by not verifying the provided
-                      destination host by the scheduler.
+        :param block_migration: Perform a block live migration
+        :param disk_over_commit: Allow disk over-commit on the destination host.
         :returns: None
         """
         server = self._get_resource(_server.Server, server)
-        server.live_migrate(self, host, force)
+        server.live_migrate(self, host, block_migration, disk_over_commit)
